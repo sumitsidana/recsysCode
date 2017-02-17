@@ -1,0 +1,3 @@
+./triple_format_to_libfm.pl -in ../../../data/at_join.train,../../../data/at_join.test -target 2 -separator "\t"
+./libFM -task r -train /home/ama/sidana/recsys_baselines/data/ml-100k/ua.base.libfm -test /home/ama/sidana/recsys_baselines/data/ml-100k/ua.test.libfm -dim '1,1,10' -iter 200 -method sgd -learn_rate 0.001 -regular '0,0,0.01' -init_stdev 0.1 > movieLens100kResults
+./libFM -task c -train /home/ama/sidana/recsys_baselines/data/at_join.train.libfm -test /home/ama/sidana/recsys_baselines/data/at_join.test.libfm -dim '1,1,10' -iter 10 -method sgd -learn_rate 0.001 -regular '0,0,0.01' -init_stdev 0.1 -out /home/ama/sidana/recsys_baselines/data/libfmresult_at -rlog /home/ama/sidana/recsys_baselines/data/log_at

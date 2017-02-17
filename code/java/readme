@@ -1,0 +1,101 @@
+# kelkooBaselines: savePartialClickFile, kelkooBaselines: writeFullFilesToDisk
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+javac preProcess/DivideDatasetForCrossvalidation.java preProcess/InputOutput.java
+java -cp . preProcess.DivideDatasetForCrossvalidation 0.8 ../../data/input/orderedClicks.csv ../../data/output/clicksTrain ../../data/output/clicksTest ../../data/input/orderedClicksUsersOffers.csv ../../data/output/clicksTrainPartial ../../data/output/clicksTestPartial ../../data/output/clicksTestPartial ../../data/output/dat.clicksTestCounts ../../data/output/dat.clicksTest ../../data/output/dat.clicksTest ../../data/output/testUsers
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# kelkooBaselines: Popularity
+
+./joinfilessidebyside.sh testUsers mostpopularitems.txt dat.predictedPopularity
+
+javac preProcess/ConvertIntoRelevanceVector.java
+java -cp . preProcess.ConvertIntoRelevanceVector ../../data/output/dat.clicksTest ../../data/output/popularity/dat.predictedPopularity ../../data/output/popularity/relevanceVector
+
+# python notebook: compOfflineEvalMetrics.ipynb
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# kelkooBaselines: user_past_preferences
+
+javac postProcess/GroupInteractionByUserItem.java
+sudo java -cp . postProcess.GroupInteractionByUserItem /data/recsysBaselines/user_past_preference.csv /data/recsysBaselines/userInteractions.csv (code was executed on lab machine bec. of java version problem)
+
+javac preProcess/TargetUsersPastInteractions.java
+java -cp . preProcess.TargetUsersPastInteractions ../../data/output/pastInteractions/userInteractions.csv ../../data/output/testUsers ../../data/output/pastInteractions/dat.userPastInteractions
+java -cp . preProcess.ConvertIntoRelevanceVector ../../data/output/dat.clicksTest ../../data/output/pastInteractions/dat.userPastInteractions ../../data/output/pastInteractions/relevanceVector
+
+# python notebook: compOfflineEvalMetrics.ipynb
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+javac preProcess/WriteInputFile.java
+java -cp . preProcess.WriteInputFile ../../data/output/clicksTrainPartial ../../data/output/similarity/input.similarity
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# kelkooBaselines: savePartialClickFile, kelkooBaselines: writeFullFilesToDisk
+# cp /data/sidana/recsysBaselines/logs/clicks/partial/* /home/ama/sidana/recsysBaselines/data/input/countries/
+# cp /data/sidana/recsysBaselines/logs/clicks/full/* /home/ama/sidana/recsysBaselines/data/input/countries/
+# In /home/ama/sidana/recsysBaselines/data/input/countries/ -> ./copyfiles.sh
+# cd /home/ama/sidana/recsysBaselines/code/java/ -> ./crossValidationPreparation.sh
+# cd /home/ama/sidana/recsysBaselines/code/shellscript/ -> ./prependColumnHeader.sh
+# kelkooBaselines: Popularity
+javac preProcess/CopyMultipleLines.java preProcess/InputOutput.java
+java -cp . preProcess.CopyMultipleLines ../../data/output/popularity/countryfiles ../../data/output/countryfiles
+# cd /home/ama/sidana/recsysBaselines/code/shellscript/ -> joinfilessidebyside.sh
+# ./convertintorelevancevector.sh
+# ./computeEvalMetrics.sh
+javac postProcess/Operations.java postProcess/InputOutput.java (#postProcess.InputOutput.writeEvaluationFile(args[0], args[1], args[2]);)
+java -cp . postProcess.Operations ../../data/output/popularity/countryfiles/evalMetrics ../../data/output/popularity/countryfiles/dat.MAPPopularity Mean\ Average\ Precision
+java -cp . postProcess.Operations ../../data/output/popularity/countryfiles/evalMetrics ../../data/output/popularity/countryfiles/dat.MRRPopularity Mean\ Reciprocal\ Rank
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# kelkooBaselines: user_past_preferences
+# cd /data/sidana/recsysBaselines/pastpreferences
+# ./copyfiles.sh
+# GroupInteractionByUserItem.sh
+# targetuserpastinteractions.sh
+# convertintorelevancevector.sh
+# computeEvalMetrics.sh
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+java -cp . postProcess.Operations ../../data/output/pastInteractions/countryfiles/evalMetrics ../../data/output/pastInteractions/countryfiles/dat.meanaverageprecision Mean\ Average\ Precision
+java -cp . postProcess.Operations ../../data/output/pastInteractions/countryfiles/evalMetrics ../../data/output/pastInteractions/countryfiles/dat.MRRPastInteractions Mean\ Reciprocal\ Rank
+java -cp . postProcess.Operations ../../data/output/popularity/countryfiles/evalMetrics ../../data/output/popularity/countryfiles/dat.ndcgpastinteractions ndcg@29
+java -cp . postProcess.Operations ../../data/output/popularity/countryfiles/evalMetrics ../../data/output/popularity/countryfiles/dat.ndcgpopularity ndcg@29
+wc -l testUsers_* > numTestUsersCountriesTemp (delete last line)
+javac postProcess/Operations.java postProcess/InputOutput.java
+java -cp . postProcess.Operations ../../data/output/countryfiles/numTestUsersCountriesTemp ../../data/output/countryfiles/numTestUsersCountries
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+javac postProcess/*.java
+java -cp . postProcess.Operations ~/thesis_repo/trunk/figs/gnuplot/dat.MRRPastInteractions ~/thesis_repo/trunk/figs/gnuplot/dat.MRRPopularity  ~/thesis_repo/trunk/figs/gnuplot/dat.MRRPastInteractionsPopularity
+javac postProcess/*.java
+java -cp . postProcess.Operations ../../data/output/popularity/countryfiles/dat.ndcgpopularity ../../data/output/countryfiles/numTestUsersCountries ../../data/output/popularity/countryfiles/dat.ndcgpopularitynumusers
+# Compute division from libre office calc between 3rd and 2nd columns of ../../data/output/popularity/countryfiles/dat.ndcgpopularitynumusers > /home/sumit/thesis_project/trunk/figs/gnuplot/dat.ndcgpopularity
+java -cp . postProcess.Operations ../../data/output/pastInteractions/countryfiles/dat.ndcgpastinteractions ../../data/output/countryfiles/numTestUsersCountries ../../data/output/pastInteractions/countryfiles/dat.ndcgpastinteractionsnumusers
+# Compute division from libre office calc between 3rd and 2nd columns of ../../data/output/pastInteractions/countryfiles/dat.ndcgpastinteractionsnumusers > /home/sumit/thesis_project/trunk/figs/gnuplot/dat.ndcgpastinteractions
+
+java -cp . postProcess.Operations ~/thesis_project/trunk/figs/gnuplot/dat.ndcgpastinteractions ~/thesis_project/trunk/figs/gnuplot/dat.ndcgpopularity  ~/thesis_project/trunk/figs/gnuplot/dat.ndcgpastinteractionspopularity
+java -cp . postProcess.Operations ~/thesis_repo/trunk/figs/gnuplot/dat.ndcgpastinteractionspopularity ~/thesis_repo/trunk/figs/gnuplot/dat.MAPPastInteractionsPopularity ~/thesis_repo/trunk/figs/gnuplot/dat.ndcgproperformat
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Compute minimum of RMSE
+javac postProcess/*.java
+java -cp . postProcess.Operations ~/recsys_baselines/cpluscplus/libfm/bin/movieLens100kResults
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+javac preProcess/InputOutput.java preProcess/WriteInputFM.java
+java -cp . preProcess.WriteInputFM /home/ama/sidana/recsys_baselines/data/cOJoin_at.csv /home/ama/sidana/recsys_baselines/data/at_join
+javac preProcess/DivideDatasetForCrossvalidation.java
+java -cp . preProcess.DivideDatasetForCrossvalidation 0.8 ~/recsys_baselines/data/at_join ~/recsys_baselines/data/at_join.train ~/recsys_baselines/data/at_join.test
+./triple_format_to_libfm.pl -in ../../../data/at_join.train,../../../data/at_join.test -target 2 -separator "\t"
+./libFM -task c -train /home/ama/sidana/recsys_baselines/data/at_join.train.libfm -test /home/ama/sidana/recsys_baselines/data/at_join.test.libfm -dim '1,1,10' -iter 10 -method sgd -learn_rate 0.001 -regular '0,0,0.01' -init_stdev 0.1 -out libfmresult_at
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+1. kelkooBaselines: clickOfferJoin
+2. ./copyfiles.sh ../fmcountryfiles/ => inside directory: /home/ama/sidana/recsysBaselines/data/input/fmcountries
+3. ./doeverythingfm.sh
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. kelkooBaselines: clickOfferJoin
+2. /copyfiles.sh ../fmcountryfilesv2/ => inside directory: /home/ama/sidana/recsysBaselines/data/input/fmcountriesv2
+3. ./doeverythingfm.sh
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+java -cp . preProcess.NewLineForSpace ../../data/output/fmIT.txt ../../data/output/fmit.txt
+":"->","
+paste -d',' csv2Parquet.txt writeinputfm.txt dividedatasetforcrossvalidation.txt triple_format_to_libfm.txt libfm.txt > timeTemp.txt
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+./getRankedListGroundTruthForUser.sh
+./convertintorelvecgeneralized.sh
+./computeEvalMetrics.sh
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+java -cp . postProcess.Operations ../../data/output/fmcountryfilesv3/vectors/len1/em/evalMetrics ../../data/output/fmcountryfilesv3/vectors/len1/em/dat.meanaverageprecision Mean\ Average\ Precision
+javac postProcess/*.java
+java -cp . postProcess.Operations ~/thesis_project/trunk/figs/gnuplot/dat.meanaverageprecisionfm ~/thesis_project/trunk/figs/gnuplot/dat.MAPPastInteractionsPopularity ~/thesis_project/trunk/figs/gnuplot/dat.mapfmpastinteractionspopularity

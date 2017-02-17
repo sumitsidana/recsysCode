@@ -1,0 +1,3 @@
+copyfiles.sh: copies files by the name of part-0000 inside all folders in a given folder to a different folder.
+ 
+prependColumnHeader.sh: prepends a user defined column header in all files in a folder matching a particular pattern. Input: column header  

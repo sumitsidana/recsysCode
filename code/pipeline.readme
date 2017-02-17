@@ -1,0 +1,49 @@
+1. Execute the notebook "kelkooBaselines: savePartialClickFile" and "kelkooBaselines: writeFullFilesToDisk" in zeppellin
+Output: orderedClicksUsersOffers.csv, orderedClicks.csv
+Description: Saves clickView ordered by utcDate. orderedClicksUsersOffers.csv has just users and offers. 
+
+2. Execute java program DivideDatasetForCrossvalidation
+Output: clicksTrain, clicksTest, clicksTrainPartial, clicksTestPartial, dat.clicksTest, dat.clicksTestCounts, testUsers
+Description: Divides dataset into train and test. Writes clicksTestPartial into proper format of dat.clicksTest (Ground Truth), Extracts testUsers from dat.clicksTest
+
+3. Execute the notebook "kelkooBaselines: Popularity"
+Output: mospopularitems.txt
+Description: Writes the most popular item on the basis of clicksTrainPartial
+
+4. ./joinfilessidebyside.sh testUsers mostpopularitems.txt dat.predictedPopularity
+Output: dat.predictedPopularity
+Description: Joins testUsers and mostpopularitems.txt side by side
+
+5. Execute java program ConvertIntoRelevanceVecor.java
+Output: popularity/relevanceVector
+Description: Converts dat.predictedPopularity into relevanceVector of 1s and 0s
+
+6. Execute Python notebook compOfflineEvalMetrics.ipynb
+Output: evalMetrics
+Description: Computes evaluation metrics by taking relevanceVector as input
+
+7. Execute the notebook: "kelkooBaselines: user_past_preferences" 
+Output: user_past_preference.csv
+Description: Groups clicksTrainPartial into users and offers and sort in descending order
+
+8. Execute java program: GroupInteractionByUserItem.java on lab system and not on server
+Output: userInteractions.csv
+Description: Groups by user. All offers placed in front of users. Sorted in number of clicks 
+
+9. Execute java program TargetUsersPastInteractions.java
+Output: dat.userPastInteractions  
+Description: All offers of target users in front of him sorted by descending order in number of clicks
+
+10. Execute java program ConvertIntoRelevanceVecor.java
+Output: relevanceVector
+Description: Converts dat.userPastInteractions into a relevance vector of 0's and 1's
+
+11. Execute Python notebook compOfflineEvalMetrics.ipynb
+Output: evalMetrics
+Description: Computes evaluation metrics by taking relevance Vector as input
+
+12. Execute java program WriteInputFile.java
+Output: similarity/input.similarity
+Description: Computes user, their offers and if they interacted with the offer. In LibSVM format.
+
+

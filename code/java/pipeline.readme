@@ -1,0 +1,59 @@
+Steps:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# PreProcess:
+1. cd /home/ama/sidana/recsysBaselines/code/scala/
+2. sbt package
+3. cd -
+4. ./spark-submit --class "main.scala.WriteInput"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 30G --driver-memory 3G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+1. kelkooBaselines: clickOfferJoin
+2. ./copyfiles.sh ../fmcountryfiles/ => inside directory: /home/ama/sidana/recsysBaselines/data/input/fmcountries
+3. ./writeinputfm.sh
+4  ./dividedatasetforcrossvalidation.sh
+5. ./prependColumnHeader.sh userid\\tofferid\\trating (to both train and test files and input files)
+6. ./writeuo.sh
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Popularity:
+1. kelkooBaselines: Popularity
+2. javac preProcess/CopyMultipleLines.java preProcess/InputOutput.java
+3. java -cp . preProcess.CopyMultipleLines /home/ama/sidana/recsysBaselines/data/output/popcountryfiles /home/ama/sidana/recsysBaselines/data/output/test/users
+4. cd /home/ama/sidana/recsysBaselines/code/shellscript/ -> joinfilessidebyside.sh
+5. ./convertintorelvecgeneralized_pop_len1.sh
+6. ./computeevalmetricspoplen1.sh
+7. javac postProcess/Operations.java postProcess/InputOutput.java (#postProcess.InputOutput.writeEvaluationFile(args[0], args[1], args[2]);)
+8. java -cp . postProcess.Operations ../../data/output/popcountryfiles/len1/em/evalMetrics ../../data/output/popcountryfiles/len1/dat.mappop Mean\ Average\ Precision
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Past Interactions:
+1. cd /home/ama/spark/spark/
+2. cd /home/ama/sidana/recsysBaselines/code/scala/
+3. sbt package
+4. cd -
+5. ./spark-submit --class "main.scala.user_past_preference"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 30G --driver-memory 3G ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+6. cd /data/sidana/recsysBaselines/user_past_preference
+7. ./copyfiles.sh
+8 a) scp tiger:recsysBaselines/data/output/picountryfiles/user_past_preference_* /data/recsysBaselines/picountryfiles/
+8 b) sudo ./GroupInteractionByUserItem.sh (on local system :( )
+8 c) cd /data/recsysBaselines/picountryfiles (on local system :( )
+8 d) scp -r userInteractions_* tiger:recsysBaselines/data/output/picountryfiles/
+In Server:
+cd ~/recsysBaselines/code/shellscript/
+5. ./targetuserpastinteractions.sh
+6. ./convertintorelvecgeneralized_pi_len1.sh
+7. ./computeevalmetricspilen1.sh
+9. javac postProcess/Operations.java postProcess/InputOutput.java (#postProcess.InputOutput.writeEvaluationFile(args[0], args[1], args[2]);)
+10. java -cp . postProcess.Operations ../../data/output/picountryfiles/len1/em/evalMetrics ../../data/output/picountryfiles/len1/dat.mappi Mean\ Average\ Precision
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Factorization Machines:
+1. ./triple_format_to_libfm.sh
+2. ./libfm.sh
+3. java -cp . preProcess.NewLineForSpace ../../data/output/fmIT.txt ../../data/output/fmit.txt
+4. ":"->","
+5. paste -d',' csv2Parquet.txt writeinputfm.txt dividedatasetforcrossvalidation.txt triple_format_to_libfm.txt libfm.txt > timeTemp.txt
+6. ./getRankedListGroundTruthForUser.sh
+7. ./convertintorelvecgeneralized.sh
+8. ./computeEvalMetrics.sh
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Matrix Factorization
+1. kelkooBaselines: Matrix Factorization
+2. ./getrankedlistgroundtruthforusermf.sh
+3. ./convertintorelvecgeneralized_mf_len1.sh 
+4. ./computeevalmetricsmflen1.sh
