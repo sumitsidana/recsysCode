@@ -15,7 +15,7 @@
 #     ./remBrk.sh $filename1 $filename2
 # done
 
-cd ~/../spark/bin/
+cd ~/../spark/spark/bin/
 
 ./spark-submit --class "main.scala.WriteTrainTestFiles"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
