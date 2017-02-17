@@ -1,9 +1,15 @@
-cd /data/sidana/recsysBaselines/bug_december/rawfiles/
-sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate]" *.csv
+# cd /data/sidana/recsysBaselines/bug_december/rawfiles/
+# sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate]" *.csv
 
-cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+# cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
 
-for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+# for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#     filename1="/data/sidana/recsysBaselines/bug_december/rawfiles/totalData_$countryCode.csv"
+#     filename2="/data/sidana/recsysBaselines/bug_december/rawfiles/rawFile_$countryCode.csv"
+#     ./remBrk.sh $filename1 $filename2
+# done
+
+for countryCode in "nl"; do
     filename1="/data/sidana/recsysBaselines/bug_december/rawfiles/totalData_$countryCode.csv"
     filename2="/data/sidana/recsysBaselines/bug_december/rawfiles/rawFile_$countryCode.csv"
     ./remBrk.sh $filename1 $filename2
