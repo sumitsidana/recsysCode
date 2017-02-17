@@ -9,11 +9,11 @@
 #     ./remBrk.sh $filename1 $filename2
 # done
 
-for countryCode in "nl"; do
-    filename1="/data/sidana/recsysBaselines/bug_december/rawfiles/totalData_$countryCode.csv"
-    filename2="/data/sidana/recsysBaselines/bug_december/rawfiles/rawFile_$countryCode.csv"
-    ./remBrk.sh $filename1 $filename2
-done
+# for countryCode in "nl"; do
+#     filename1="/data/sidana/recsysBaselines/bug_december/rawfiles/totalData_$countryCode.csv"
+#     filename2="/data/sidana/recsysBaselines/bug_december/rawfiles/rawFile_$countryCode.csv"
+#     ./remBrk.sh $filename1 $filename2
+# done
 
 cd ~/../spark/bin/
 
