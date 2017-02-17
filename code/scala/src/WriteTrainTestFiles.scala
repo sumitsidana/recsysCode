@@ -20,7 +20,7 @@ object WriteTrainTestFiles {
 				val countryCodes = Array("fi","ie","nb","nl","no","pl","pt","ru","se","uk","it","fr")
 
 
-				val fw = new FileWriter("/data/sidana/recsysBaselines/bug_december/inputfile/inputfile.txt", true)
+//				val fw = new FileWriter("/data/sidana/recsysBaselines/bug_december/inputfile/inputfile.txt", true)
 				for (code <- countryCodes){
 					val t1 = System.currentTimeMillis
 							val offers = sqlContext.read
