@@ -21,30 +21,30 @@
 
 # ./spark-submit --class "main.scala.WriteTrainTestFiles"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
-cd /data/sidana/recsysBaselines/bug_december/inputfile/
+# cd /data/sidana/recsysBaselines/bug_december/inputfile/
 
-mkdir -p /data/sidana/recsysBaselines/bug_december/trtesplitfiles
+# mkdir -p /data/sidana/recsysBaselines/bug_december/trtesplitfiles
 
-echo 'renaming files'
+# echo 'renaming files'
 
-for d in */ ; do
-    echo "$d"
-    fname=`basename $d`
-    echo $fname
-    mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/trtesplitfiles/$fname"
-done
+# for d in */ ; do
+#     echo "$d"
+#     fname=`basename $d`
+#     echo $fname
+#     mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/trtesplitfiles/$fname"
+# done
 
-cd /data/sidana/recsysBaselines/bug_december/trtesplitfiles
+# cd /data/sidana/recsysBaselines/bug_december/trtesplitfiles
 
-echo 'adding headers'
+# echo 'adding headers'
 
 
 
-sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate]" *.csv
+# sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate]" *.csv
 
-cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+# cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
 
-mkdir -p /data/sidana/recsysBaselines/bug_december/tsplitfiles
+# mkdir -p /data/sidana/recsysBaselines/bug_december/tsplitfiles
 
 echo 'removing brackets'
 
