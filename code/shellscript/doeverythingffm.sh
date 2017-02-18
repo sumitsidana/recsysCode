@@ -242,7 +242,7 @@
 #     ./remBrk.sh $filename1 $filename2
 # done
 
-mkdir -p /data/sidana/recsysBaselines/bug_december/tabseparatedfiles/userofferclicks
+mkdir -p /data/sidana/recsysBaselines/bug_december/tabseparatedinput/userofferclicks
 
 
 
