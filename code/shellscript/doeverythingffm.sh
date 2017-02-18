@@ -88,10 +88,10 @@
 
 # cd /data/sidana/recsysBaselines/bug_december/stats/temp
 
-# sed -i.bak 1i"[userid","count]" userClicks_*
+# sed -i.bak 1i"[usererid","count]" userClicks_*
 # sed -i.bak 1i"[offerid","count]" offerClicks_*
 
-cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+cd /home/ama/sidana/recsysCode/code/shellscript
 
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/stats/temp/userClicks_$countryCode.train"
@@ -145,7 +145,7 @@ sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","cou
 
 echo 'remove brackets'
 
-cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+cd /home/ama/sidana/recsysCode/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/inputffm/train/userclicks/temp/ffminput_$countryCode.csv"
     filename2="/data/sidana/recsysBaselines/bug_december/inputffm/train/userclicks/ffminput_$countryCode.csv"
@@ -176,7 +176,7 @@ sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","cou
 
 echo 'remove brackets'
 
-cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+cd /home/ama/sidana/recsysCode/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/inputffm/train/userofferclicks/temp/ffminput_$countryCode.csv"
     filename2="/data/sidana/recsysBaselines/bug_december/inputffm/train/userofferclicks/ffminput_$countryCode.csv"
@@ -205,7 +205,7 @@ cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp
 
 sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
 
-cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+cd /home/ama/sidana/recsysCode/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp/ffminput_$countryCode.csv"
     filename2="/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/ffminput_$countryCode.csv"
@@ -235,7 +235,7 @@ cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp
 sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
 
 
-cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+cd /home/ama/sidana/recsysCode/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp/ffminput_$countryCode.csv"
     filename2="/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/ffminput_$countryCode.csv"
