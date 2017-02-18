@@ -185,62 +185,65 @@
 
 
 
-cd ~/../spark/spark/bin
+# cd ~/../spark/spark/bin
 
 
-echo 'spark: writing feature - number of clicks by user in test data'
+# echo 'spark: writing feature - number of clicks by user in test data'
 
-./spark-submit --class "main.scala.UserClicksTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+# ./spark-submit --class "main.scala.UserClicksTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
-cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp/temp
+# cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp/temp
 
-for d in */ ; do
-    echo "$d"
-    fname=`basename $d`
-    echo $fname
-    mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp/$fname"
-done
+# for d in */ ; do
+#     echo "$d"
+#     fname=`basename $d`
+#     echo $fname
+#     mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp/$fname"
+# done
 
-cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp
+# cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp
 
-sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
+# sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
 
-cd /home/ama/sidana/recsysCode/code/shellscript
-for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
-    filename1="/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp/ffminput_$countryCode.csv"
-    filename2="/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/ffminput_$countryCode.csv"
-    ./remBrk.sh $filename1 $filename2
-done
+# cd /home/ama/sidana/recsysCode/code/shellscript
+# for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#     filename1="/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp/ffminput_$countryCode.csv"
+#     filename2="/data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/ffminput_$countryCode.csv"
+#     ./remBrk.sh $filename1 $filename2
+# done
 
-cd ~/../spark/spark/bin/
+# cd ~/../spark/spark/bin/
 
-echo 'spark: writing feature - number of clicks on test offers'
+# echo 'spark: writing feature - number of clicks on test offers'
 
-./spark-submit --class "main.scala.UserOfferClicksTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
-
-
-cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp/temp
-
-for d in */ ; do
-    echo "$d"
-    fname=`basename $d`
-    echo $fname
-    mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp/$fname"
-done
-
-cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp
+# ./spark-submit --class "main.scala.UserOfferClicksTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
 
+# cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp/temp
 
-sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
+# for d in */ ; do
+#     echo "$d"
+#     fname=`basename $d`
+#     echo $fname
+#     mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp/$fname"
+# done
+
+# cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp
 
 
-cd /home/ama/sidana/recsysCode/code/shellscript
-for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
-    filename1="/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp/ffminput_$countryCode.csv"
-    filename2="/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/ffminput_$countryCode.csv"
-    ./remBrk.sh $filename1 $filename2
-done
+
+# sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
+
+
+# cd /home/ama/sidana/recsysCode/code/shellscript
+# for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#     filename1="/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp/ffminput_$countryCode.csv"
+#     filename2="/data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/ffminput_$countryCode.csv"
+#     ./remBrk.sh $filename1 $filename2
+# done
+
+mkdir -p /data/sidana/recsysBaselines/bug_december/tabseparatedfiles/userofferclicks
+
 
 
 ./writetabseparatedfile_train.sh
