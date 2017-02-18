@@ -23,7 +23,7 @@
 
 cd /data/sidana/recsysBaselines/bug_december/inputfile/
 
-mkdir -p "/data/sidana/recsysBaselines/bug_december/trtesplitfiles
+mkdir -p /data/sidana/recsysBaselines/bug_december/trtesplitfiles
 
 echo 'renaming files'
 
