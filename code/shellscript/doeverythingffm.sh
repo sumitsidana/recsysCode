@@ -95,7 +95,7 @@ cd /home/ama/sidana/recsysCode/code/shellscript
 
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/stats/temp/userClicks_$countryCode.train"
-    filename2="/data/sidana/recsysBaselines/bug_december/stats/userClicks_$countryCode.train*"
+    filename2="/data/sidana/recsysBaselines/bug_december/stats/userClicks_$countryCode.train"
     ./remBrk.sh $filename1 $filename2
 done
 
