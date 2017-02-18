@@ -46,31 +46,31 @@
 
 # mkdir -p /data/sidana/recsysBaselines/bug_december/tsplitfiles
 
-echo 'removing brackets'
+# echo 'removing brackets'
 
-for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
-    filename1="/data/sidana/recsysBaselines/bug_december/trtesplitfiles/train_$countryCode.csv"
-    filename2="/data/sidana/recsysBaselines/bug_december/tsplitfiles/train_$countryCode.csv"
-    ./remBrk.sh $filename1 $filename2
-done
+# for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#     filename1="/data/sidana/recsysBaselines/bug_december/trtesplitfiles/train_$countryCode.csv"
+#     filename2="/data/sidana/recsysBaselines/bug_december/tsplitfiles/train_$countryCode.csv"
+#     ./remBrk.sh $filename1 $filename2
+# done
 
-for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
-    filename1="/data/sidana/recsysBaselines/bug_december/trtesplitfiles/test_$countryCode.csv"
-    filename2="/data/sidana/recsysBaselines/bug_december/tsplitfiles/test_$countryCode.csv"
-    ./remBrk.sh $filename1 $filename2
-done
+# for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#     filename1="/data/sidana/recsysBaselines/bug_december/trtesplitfiles/test_$countryCode.csv"
+#     filename2="/data/sidana/recsysBaselines/bug_december/tsplitfiles/test_$countryCode.csv"
+#     ./remBrk.sh $filename1 $filename2
+# done
 
-cd ~/../spark/spark/bin/
+# cd ~/../spark/spark/bin/
 
-mkdir -p /data/sidana/recsysBaselines/bug_december/stats/temp/temp
+# mkdir -p /data/sidana/recsysBaselines/bug_december/stats/temp/temp
 
-echo 'spark: stats train'
+# echo 'spark: stats train'
 
-./spark-submit --class "main.scala.WriteStatsTrain"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+# ./spark-submit --class "main.scala.WriteStatsTrain"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
-echo 'spark: stats test'
+# echo 'spark: stats test'
 
-./spark-submit --class "main.scala.WriteStatsTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+# ./spark-submit --class "main.scala.WriteStatsTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
 cd /data/sidana/recsysBaselines/bug_december/stats/temp/temp
 
@@ -88,11 +88,8 @@ done
 
 cd /data/sidana/recsysBaselines/bug_december/stats/temp
 
-for i in *;
-do
- sed -i.bak 1i"[userid","count]" userClicks_*
- sed -i.bak 1i"[offerid","count]" offerClicks_*
-done
+sed -i.bak 1i"[userid","count]" userClicks_*
+sed -i.bak 1i"[offerid","count]" offerClicks_*
 
 cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
 
@@ -143,10 +140,8 @@ cd /data/sidana/recsysBaselines/bug_december/inputffm/train/userclicks/temp
 
 echo 'add: headers'
 
-for i in *;
-do
- sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
-done
+sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
+
 
 echo 'remove brackets'
 
@@ -176,10 +171,8 @@ cd /data/sidana/recsysBaselines/bug_december/inputffm/train/userofferclicks/temp
 
 echo 'add headers'
 
-for i in *;
-do
- sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
-done
+
+sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
 
 echo 'remove brackets'
 
@@ -194,8 +187,6 @@ done
 
 cd ~/../spark/spark/spark/bin
 
-
-/
 
 echo 'spark: writing feature - number of clicks by user in training data'
 
@@ -212,10 +203,7 @@ done
 
 cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userclicks/temp
 
-for i in *;
-do
- sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
-done
+sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
 
 cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
@@ -242,10 +230,10 @@ done
 
 cd /data/sidana/recsysBaselines/bug_december/inputffm/test/userofferclicks/temp
 
-for i in *;
-do
- sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
-done
+
+
+sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
+
 
 cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
