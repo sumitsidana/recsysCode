@@ -17,9 +17,13 @@
 
 cd ~/../spark/spark/bin/
 
+echo 'writing train and test files'
+
 ./spark-submit --class "main.scala.WriteTrainTestFiles"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
 cd /data/sidana/recsysBaselines/bug_december/inputfile/
+
+echo 'renaming files'
 
 for d in */ ; do
     echo "$d"
@@ -30,9 +34,13 @@ done
 
 cd /data/sidana/recsysBaselines/bug_december/trtesplitfiles
 
+echo 'adding headers'
+
 sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate]" *.csv
 
 cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
+
+echo 'removing brackets'
 
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/trtesplitfiles/train_$countryCode.csv"
@@ -46,15 +54,21 @@ for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; 
     ./remBrk.sh $filename1 $filename2
 done
 
-cd ~/../spark/bin/
+cd ~/../spark/spark/bin/
 
 mkdir -p /data/sidana/recsysBaselines/bug_december/stats/temp/temp
 
+echo 'spark: stats train'
+
 ./spark-submit --class "main.scala.WriteStatsTrain"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+
+echo 'spark: stats test'
 
 ./spark-submit --class "main.scala.WriteStatsTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
 cd /data/sidana/recsysBaselines/bug_december/stats/temp/temp
+
+echo 'renaming files'
 
 for d in */ ; do
     echo "$d"
@@ -62,6 +76,9 @@ for d in */ ; do
     echo $fname
     mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/stats/temp/$fname"
 done
+
+
+
 
 cd /data/sidana/recsysBaselines/bug_december/stats/temp
 
@@ -78,6 +95,8 @@ for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; 
     filename2="/data/sidana/recsysBaselines/bug_december/stats/userClicks_$countryCode.train*"
     ./remBrk.sh $filename1 $filename2
 done
+
+echo 'removing brackets'
 
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
     filename1="/data/sidana/recsysBaselines/bug_december/stats/temp/userClicks_$countryCode.test"
@@ -97,11 +116,15 @@ for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; 
     ./remBrk.sh $filename1 $filename2
 done
 
-cd ~/../spark/bin/
+cd ~/../spark/spark/bin/
+
+echo 'spark: writing feature - number of clicks by user in training data'
 
 ./spark-submit --class "main.scala.UserClicksTrain"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
 cd /data/sidana/recsysBaselines/bug_december/inputffm/train/userclicks/temp/temp
+
+echo 'rename files'
 
 for d in */ ; do
     echo "$d"
@@ -112,10 +135,14 @@ done
 
 cd /data/sidana/recsysBaselines/bug_december/inputffm/train/userclicks/temp
 
+echo 'add: headers'
+
 for i in *;
 do
  sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","clickcount]" ffminput_*.csv
 done
+
+echo 'remove brackets'
 
 cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
@@ -124,7 +151,9 @@ for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; 
     ./remBrk.sh $filename1 $filename2
 done
 
-cd ~/../spark/bin/
+cd ~/../spark/spark/bin/
+
+echo 'spark: writing feature - number of clicks on train offers'
 
 ./spark-submit --class "main.scala.UserOfferClicksTrain"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
@@ -136,12 +165,17 @@ for d in */ ; do
     echo $fname
     mv "$d/part-00000" "/data/sidana/recsysBaselines/bug_december/inputffm/train/userofferclicks/temp/$fname"
 done
+
 cd /data/sidana/recsysBaselines/bug_december/inputffm/train/userofferclicks/temp
+
+echo 'add headers'
 
 for i in *;
 do
  sed -i.bak 1i"[useridclicks","offeridclicks","useridoffers","offeridoffers","countrycode","category","merchant","utcdate","userid","userclickcount","offerid","offerclickcount]" ffminput_*.csv
 done
+
+echo 'remove brackets'
 
 cd /home/ama/sidana/repoRecsysBaselines/recsysBaselines/code/shellscript
 for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
@@ -151,8 +185,13 @@ for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; 
 done
 
 
-cd ~/../spark/bin/
 
+cd ~/../spark/spark/spark/bin
+
+
+/
+
+echo 'spark: writing feature - number of clicks by user in training data'
 
 ./spark-submit --class "main.scala.UserClicksTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
@@ -179,7 +218,9 @@ for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; 
     ./remBrk.sh $filename1 $filename2
 done
 
-cd ~/../spark/bin/
+cd ~/../spark/spark/bin/
+
+echo 'spark: writing feature - number of clicks on test offers'
 
 ./spark-submit --class "main.scala.UserOfferClicksTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
