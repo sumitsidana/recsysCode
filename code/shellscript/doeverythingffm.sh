@@ -60,17 +60,17 @@
 #     ./remBrk.sh $filename1 $filename2
 # done
 
-# cd ~/../spark/spark/bin/
+cd ~/../spark/spark/bin/
 
-# mkdir -p /data/sidana/recsysBaselines/bug_december/stats/temp/temp
+mkdir -p /data/sidana/recsysBaselines/bug_december/stats/temp/temp
 
-# echo 'spark: stats train'
+echo 'spark: stats train'
 
-# ./spark-submit --class "main.scala.WriteStatsTrain"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+./spark-submit --class "main.scala.WriteStatsTrain"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 50 --executor-memory 20G --driver-memory 20G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
-# echo 'spark: stats test'
+echo 'spark: stats test'
 
-# ./spark-submit --class "main.scala.WriteStatsTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
+./spark-submit --class "main.scala.WriteStatsTest"  --packages com.databricks:spark-csv_2.11:1.4.0 --total-executor-cores 70 --executor-memory 30G --driver-memory 30G --conf spark.driver.maxResultSize=5G  ~/recsysBaselines/code/scala/target/scala-2.11/simple-project_2.11-1.0.jar
 
 cd /data/sidana/recsysBaselines/bug_december/stats/temp/temp
 
