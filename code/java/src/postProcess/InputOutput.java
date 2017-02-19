@@ -37,7 +37,7 @@ public class InputOutput {
 		 * ../../data/output/fmcountryfilesv3/vectors/len1/em/dat.meanaverageprecision Mean\ Average\ Precision
 		 */
 		//"at","be","br","ch","cz","de","dk",
-		List<String> countryCodes = Arrays.asList("fi","nb","nl","no","pl","pt","ru","se","uk","it","fr");
+		List<String> countryCodes = Arrays.asList("ie","fi","nb","nl","no","pl","pt","ru","se","uk","it","fr");
 		PrintWriter printWriter = new PrintWriter (outputFile);
 		Map<String,Double>countryMetrics = new LinkedHashMap<String,Double>();
 		for(int i = 0 ; i < countryCodes.size() ; i++){
