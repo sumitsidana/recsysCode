@@ -246,8 +246,8 @@
 
 
 
-./writetabseparatedfile_train.sh
-./writetabseparatedfile_test.sh
+# ./writetabseparatedfile_train.sh
+# ./writetabseparatedfile_test.sh
 
 # mkdir -p /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks
 # mkdir -p /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks/model
@@ -255,6 +255,6 @@
 # mkdir -p /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks/output
 # mkdir -p /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks/predicttime
 
-./ffminputuserofferclicks.sh
+# ./ffminputuserofferclicks.sh
 
 ./ffmtemp.sh

@@ -1,4 +1,4 @@
-./libffm.sh
+# ./libffm.sh
 ./getrankedlistgroundtruthforuserffm.sh
 ./relvecffm.sh
 ./evalmetrics_ffm.sh
