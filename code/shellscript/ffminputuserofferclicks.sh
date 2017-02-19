@@ -1,6 +1,7 @@
 cd ../java/src
 javac preProcess/FFMInputOperate.java preProcess/WriteFFMInput.java
-for countryCode in "fi" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+# for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+for countryCode in "ie"; do
     start=$(date +%s.%N)
     filename1="/data/sidana/recsysBaselines/bug_december/tabseparatedinput/userofferclicks/train_$countryCode.csv"
     filename2="/data/sidana/recsysBaselines/bug_december/tabseparatedinput/userofferclicks/test_$countryCode.csv"

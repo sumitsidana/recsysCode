@@ -1,6 +1,6 @@
 cd ~/recsysBaselines/code/cplusplus/libffm-1.14/
-#"at" "be" "br" "ch" "cz" "de" "dk"
-for countryCode in "fi" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#"at" "be" "br" "ch" "cz" "de" "dk" "fi" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"
+for countryCode in "ie"; do
      echo $countryCode
      start1=$(date +%s.%N)
      ./ffm-train -p /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks/$countryCode.ffm.test -s 16 -l 0.001 -k 8 -r 0.2 --auto-stop /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks/$countryCode.ffm.train  /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks/model/$countryCode.model

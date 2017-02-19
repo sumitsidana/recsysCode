@@ -1,4 +1,4 @@
-cd ../java
+cd ../java/src
 javac postProcess/Operations.java postProcess/InputOutput.java 
 for (( i=1; i <= 4; i++ ))
 do
