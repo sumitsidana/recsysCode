@@ -1,8 +1,8 @@
 cd ../java/src/
 mkdir -p /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/output/userofferclicks/len3/rv/
 javac preProcess/ConvertIntoRelVecGeneralized.java
-#"at" "be" "br" "ch" "cz" "de" "dk" "es" 
-for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#"at" "be" "br" "ch" "cz" "de" "dk" "es" "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"
+for countryCode in "ie"; do
     start=$(date +%s.%N)
 	filename1="/data/sidana/recsysBaselines/bug_december/ffmcountryfiles/output/userofferclicks/vectors/gt_$countryCode"
 	filename2="/data/sidana/recsysBaselines/bug_december/ffmcountryfiles/output/userofferclicks/vectors/pr_$countryCode"

@@ -1,3 +1,4 @@
+
 for (( i=1; i <= 4; i++ ))
 do
 #./convertintorelvecgeneralized_ffm_len$i.sh

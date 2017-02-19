@@ -1,8 +1,8 @@
 cd ../java/src
 mkdir -p /data/sidana/recsysBaselines/bug_december/ffmcountryfiles/output/userofferclicks/vectors
 javac preProcess/InputOutput.java preProcess/GetRankedListGroundTruthForUserFFM.java
-#"at" "be" "br" "ch" "cz" "de" "dk" "es"
-for countryCode in "fi" "ie" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"; do
+#"at" "be" "br" "ch" "cz" "de" "dk" "es" "fi" "nb" "nl" "no" "pl" "pt" "ru" "se" "uk" "it" "fr"
+for countryCode in "ie"; do
 start=$(date +%s.%N)
 filename1="/data/sidana/recsysBaselines/bug_december/tabseparatedinput/userofferclicks/test_$countryCode.csv"
 filename2="/data/sidana/recsysBaselines/bug_december/ffmcountryfiles/input/userofferclicks/output/$countryCode.output"
