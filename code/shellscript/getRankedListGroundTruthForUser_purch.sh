@@ -1,4 +1,4 @@
-cd ../java/
+cd ../java/src
 mkdir -p /data/sidana/purch/vectors
 javac preProcess/InputOutput.java preProcess/GetRankedListGroundTruthForUser.java
 start=$(date +%s.%N)
