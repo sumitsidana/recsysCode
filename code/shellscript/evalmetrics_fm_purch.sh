@@ -1,4 +1,4 @@
 for (( i=1; i <= 4; i++ ))
 do
-./computeevalmetricsfmlen$i.sh
+./computeevalmetricsfmlen${i}_purch.sh
 done
