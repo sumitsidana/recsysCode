@@ -626,5 +626,36 @@ public class InputOutput {
 		printWriter.close();
 
 	}
+	
+	public static void writeEvaluationFile(String inputFile, String outputFile, String evalMetric, String datafile) throws IOException{
+
+		//List<String> countryCodes = Arrays.asList("0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9");
+		//		List<String> countryCodes = Arrays.asList("10","20","30","50","75","100");
+		List<String> countryCodes = Arrays.asList("1","2","3","4");
+
+		PrintWriter printWriter = new PrintWriter (outputFile);
+		Map<String,Double>countryMetrics = new LinkedHashMap<String,Double>();
+		for(int i = 0 ; i < countryCodes.size() ; i++){
+			try (BufferedReader br = new BufferedReader(new FileReader(new File(inputFile+"/"+"len"+countryCodes.get(i)+"/em/evalMetrics_"+ datafile)))) {
+				String line;
+				while ((line = br.readLine()) != null) {
+					if(line.contains(evalMetric)){
+						countryMetrics.put(countryCodes.get(i), Double.parseDouble(line.replace(evalMetric+": ", "")));
+						//						printWriter.println(countryCodes.get(i)+" "+line.replace(evalMetric+": ", ""));
+					}
+				}
+			}
+		}
+		//		Map<String,Double>reverseSortedMap = sortByValue(countryMetrics);
+		//		for(Map.Entry<String,Double>entry:reverseSortedMap.entrySet()){
+		//			printWriter.println(entry.getKey()+" "+entry.getValue());
+		//		}
+		//		Map<String,Double>reverseSortedMap = sortByValue(countryMetrics);
+		for(Map.Entry<String,Double>entry:countryMetrics.entrySet()){
+			printWriter.println(entry.getKey()+" "+entry.getValue());
+		}
+
+		printWriter.close();
+	}
 
 }
