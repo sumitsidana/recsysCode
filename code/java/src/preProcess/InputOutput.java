@@ -636,7 +636,7 @@ public class InputOutput {
 		PrintWriter printWriter = new PrintWriter (outputFile);
 		Map<String,Double>countryMetrics = new LinkedHashMap<String,Double>();
 		for(int i = 0 ; i < countryCodes.size() ; i++){
-			try (BufferedReader br = new BufferedReader(new FileReader(new File(inputFile+"/"+"len"+countryCodes.get(i)+"/em/evalMetrics_"+ datafile)))) {
+			try (BufferedReader br = new BufferedReader(new FileReader(new File(inputFile+"/"+"len"+countryCodes.get(i)+"/em/evalMetrics_")))) {
 				String line;
 				while ((line = br.readLine()) != null) {
 					if(line.contains(evalMetric)){
@@ -646,11 +646,6 @@ public class InputOutput {
 				}
 			}
 		}
-		//		Map<String,Double>reverseSortedMap = sortByValue(countryMetrics);
-		//		for(Map.Entry<String,Double>entry:reverseSortedMap.entrySet()){
-		//			printWriter.println(entry.getKey()+" "+entry.getValue());
-		//		}
-		//		Map<String,Double>reverseSortedMap = sortByValue(countryMetrics);
 		for(Map.Entry<String,Double>entry:countryMetrics.entrySet()){
 			printWriter.println(entry.getKey()+" "+entry.getValue());
 		}
