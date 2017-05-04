@@ -787,14 +787,14 @@ public class InputOutput {
 			outputFile2) throws IOException{
 		PrintWriter printWriter1 = new PrintWriter (outputFile1);
 		PrintWriter printWriter2 = new PrintWriter (outputFile2);
-		Map<Long,Long> userIndex = new LinkedHashMap<Long,Long>();
-		Map<Long,Long> itemIndex = new LinkedHashMap<Long,Long>();
+		Map<String,Long> userIndex = new LinkedHashMap<String,Long>();
+		Map<String,Long> itemIndex = new LinkedHashMap<String,Long>();
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile1))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				String [] array = line.split(",");
-				long user = Long.parseLong(array[0]);
-				long item = Long.parseLong(array[1]);
+				String user = (array[0]);
+				String item = (array[1]);
 				long indexUser;
 				if(userIndex.containsKey(user)){
 					indexUser = userIndex.get(user);
@@ -820,8 +820,8 @@ public class InputOutput {
 			String line;
 			while ((line = br.readLine()) != null) {
 				String [] array = line.split(",");
-				long user = Long.parseLong(array[0]);
-				long item = Long.parseLong(array[1]);
+				String user = (array[0]);
+				String item = (array[1]);
 				long indexUser;
 				if(userIndex.containsKey(user)){
 					indexUser = userIndex.get(user);
