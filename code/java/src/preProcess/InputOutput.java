@@ -252,7 +252,7 @@ public class InputOutput {
 			String partTwo = inBr.readLine();
 			if (partOne == null || partTwo == null)
 				break;
-			String [] array = partOne.split("\t");
+			String [] array = partOne.split(",");
 			String user = array[0];
 			String offer = array[1];
 
