@@ -653,18 +653,21 @@ public class InputOutput {
 		printWriter.close();
 	}
 
-
-	public static void indexTrainAndTestFiles(String inputFile1, String inputFile2, /*String inputFile3,*/ String outputFile1, String
-			outputFile2/*, String outputFile3*/) throws IOException{
+	/*
+	 * This is for indexing cofactor files
+	 * 
+	 */
+	public static void indexTrainAndTestAndTest_All_Files(String inputFile1, String inputFile2, String inputFile3, String outputFile1, String
+			outputFile2, String outputFile3) throws IOException{
 		PrintWriter printWriter1 = new PrintWriter (outputFile1);
 		PrintWriter printWriter2 = new PrintWriter (outputFile2);
-		//		PrintWriter printWriter3 = new PrintWriter (outputFile3);
+		PrintWriter printWriter3 = new PrintWriter (outputFile3);
 		Map<Long,Long> userIndex = new LinkedHashMap<Long,Long>();
 		Map<Long,Long> itemIndex = new LinkedHashMap<Long,Long>();
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile1))) {
 			String line;
-			//				line = br.readLine();
-			//				printWriter1.println(line);
+			line = br.readLine();
+			printWriter1.println(line);
 			while ((line = br.readLine()) != null) {
 				String [] array = line.split(",");
 				long user = Long.parseLong(array[1]);
@@ -692,8 +695,8 @@ public class InputOutput {
 
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile2))) {
 			String line;
-			//				line = br.readLine();
-			//				printWriter2.println(line);
+			line = br.readLine();
+			printWriter2.println(line);
 			while ((line = br.readLine()) != null) {
 				String [] array = line.split(",");
 				long user = Long.parseLong(array[1]);
@@ -719,37 +722,37 @@ public class InputOutput {
 			}
 		}
 
-		//			try (BufferedReader br = new BufferedReader(new FileReader(inputFile3))) {
-		//				String line;
-		//				line = br.readLine();
-		//				printWriter3.println(line);
-		//				while ((line = br.readLine()) != null) {
-		//					String [] array = line.split(",");
-		//					long user = Long.parseLong(array[1]);
-		//					long item = Long.parseLong(array[2]);
-		//					long indexUser;
-		//					if(userIndex.containsKey(user)){
-		//						indexUser = userIndex.get(user);
-		//					}
-		//					else{
-		//						indexUser = userIndex.size();
-		//						userIndex.put(user, indexUser);
-		//					}
-		//					long indexItem;
-		//					if(itemIndex.containsKey(item)){
-		//						indexItem = itemIndex.get(item);
-		//					}
-		//					else{
-		//						indexItem = itemIndex.size();
-		//						itemIndex.put(item, indexItem);
-		//					}
-		//					String lineWritten = array[0]+","+indexUser+","+indexItem;
-		//					printWriter3.println(lineWritten);				
-		//				}
-		//			}
+		try (BufferedReader br = new BufferedReader(new FileReader(inputFile3))) {
+			String line;
+			line = br.readLine();
+			printWriter3.println(line);
+			while ((line = br.readLine()) != null) {
+				String [] array = line.split(",");
+				long user = Long.parseLong(array[1]);
+				long item = Long.parseLong(array[2]);
+				long indexUser;
+				if(userIndex.containsKey(user)){
+					indexUser = userIndex.get(user);
+				}
+				else{
+					indexUser = userIndex.size();
+					userIndex.put(user, indexUser);
+				}
+				long indexItem;
+				if(itemIndex.containsKey(item)){
+					indexItem = itemIndex.get(item);
+				}
+				else{
+					indexItem = itemIndex.size();
+					itemIndex.put(item, indexItem);
+				}
+				String lineWritten = array[0]+","+indexUser+","+indexItem;
+				printWriter3.println(lineWritten);				
+			}
+		}
 		printWriter1.close();
 		printWriter2.close();
-		//		printWriter3.close();
+		printWriter3.close();
 	}
 	public static void writeGroundTruthForBPRMF(String inputFile, String outputFile) throws IOException{
 		PrintWriter gtTest = new PrintWriter (outputFile);
@@ -776,5 +779,71 @@ public class InputOutput {
 		}
 		gtTest.close();
 	}	
+	/*
+	 * For indexing general train and test files
+	 * 
+	 */
+	public static void indexTrainAndTestFiles(String inputFile1, String inputFile2, String outputFile1, String
+			outputFile2) throws IOException{
+		PrintWriter printWriter1 = new PrintWriter (outputFile1);
+		PrintWriter printWriter2 = new PrintWriter (outputFile2);
+		Map<Long,Long> userIndex = new LinkedHashMap<Long,Long>();
+		Map<Long,Long> itemIndex = new LinkedHashMap<Long,Long>();
+		try (BufferedReader br = new BufferedReader(new FileReader(inputFile1))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				String [] array = line.split(",");
+				long user = Long.parseLong(array[0]);
+				long item = Long.parseLong(array[1]);
+				long indexUser;
+				if(userIndex.containsKey(user)){
+					indexUser = userIndex.get(user);
+				}
+				else{
+					indexUser = userIndex.size();
+					userIndex.put(user, indexUser);
+				}
+				long indexItem;
+				if(itemIndex.containsKey(item)){
+					indexItem = itemIndex.get(item);
+				}
+				else{
+					indexItem = itemIndex.size();
+					itemIndex.put(item, indexItem);
+				}
+				String lineWritten = indexUser+","+indexItem+","+array[2]+","+array[3];
+				printWriter1.println(lineWritten);		
+			}
+		}
 
+		try (BufferedReader br = new BufferedReader(new FileReader(inputFile2))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				String [] array = line.split(",");
+				long user = Long.parseLong(array[0]);
+				long item = Long.parseLong(array[1]);
+				long indexUser;
+				if(userIndex.containsKey(user)){
+					indexUser = userIndex.get(user);
+				}
+				else{
+					indexUser = userIndex.size();
+					userIndex.put(user, indexUser);
+				}
+				long indexItem;
+				if(itemIndex.containsKey(item)){
+					indexItem = itemIndex.get(item);
+				}
+				else{
+					indexItem = itemIndex.size();
+					itemIndex.put(item, indexItem);
+				}
+				String lineWritten = indexUser+","+indexItem+","+array[2]+","+array[3];
+				printWriter2.println(lineWritten);				
+			}
+		}
+		printWriter1.close();
+		printWriter2.close();
+		//		printWriter3.close();
+	}
 }
