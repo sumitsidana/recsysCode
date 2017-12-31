@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 start=$(date +%s.%N)
-awk  -v countryCode=8  'BEGIN{OFS=FS=","} {print >> "countrywise/Offers.opt.anon/Offers_" $countryCode ".anon"}' Offers.anon
+awk  -v countryCode=4  'BEGIN{OFS=FS=","} {print >> "countrywise/Click.anon/Click_" $countryCode ".anon"}' Click.anon
 dur=$(echo "$(date +%s.%N) - $start" | bc)
-echo "$countryCode:$dur">>countrywise/Offers.opt.anon/time.txt
+echo "$countryCode:$dur">>countrywise/Click.anon/time.txt
